@@ -11,55 +11,59 @@ const Welcome = (navigation) => {
         flex:1,
         backgroundColor:'lightgrey', }}>
      
-      <View style={{
-        height: '500',
-        display: 'flex',
-        justifyContent:'center',
-        alignItems:'center',}}>
-        <Image 
-            source={require("../assets/logo.png")}
-            style={{
-                
-                position:'absolute',
-                top: 150,
-                borderRadius:30,
-                flex:2, 
-            }}
-            />
         <View style={{ 
-            marginVertical: 30,
+            marginTop:10,
             }}>
+          <View >   
             <Text style = {{
+                marginTop:20,
+                marginVertical:30,
                 padding: 20,
                 fontSize: 40,
                 fontWeight:800,
                 color:'black',
-                justifyContent:'space-evenly',
+                justifyContent:'center',
+                alignItems:'center',
             }}>Dungeon of Dragons
             </Text>
+            </View>
+            <View style={{
+        height: '500',
+        display: 'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:5,
+        }}>
+        <Image 
+            source={require("../assets/logo.png")}
+            style={{
+               
+                flex:2, 
+            }}
+            />
             <Text style= {styles.baseText
             }>
                 Your Smart Home Solution
             </Text>
+             <Button
+                title="Login"
+                onPress={()=> navigation.navigate("Login")}
+                style={{
+                    
+                    width:'50%' ,
+                    borderRadius:10,
+        
+                }}/>
+            
             </View>  
             <View style={{
-                position:'absolute',
-                top: 550,
-                flex:1,
-                flexDirection:'row',
+                marginBottom:1,
             }}>
-                <Button
-                 title="Login"
-                onPress={()=> navigation.navigate('Login')}
-                style={{
-                    marginTop:22,
-                    width:'100%',   
-                    borderRadius:50,
-        
-                }}
+           
              
-            /> 
-                </View>  
+            
+                </View>    
+                  
             
             
       </View>
@@ -69,6 +73,7 @@ const Welcome = (navigation) => {
 }
 const styles = StyleSheet.create({
         baseText: {
+            marginBottom:30,
             fontFamily:'Roboto',
             justifyContent:'center',
             position:'absolute',
