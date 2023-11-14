@@ -5,61 +5,52 @@ import { TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { StyleSheet } from 'react-native'
-
+import {CrossfadeImage} from 'react-native-crossfade-image'
 import Button from '../components/Button'
 import { Pressable } from 'react-native'
 
 
-const Login = () => {
+const Login = ({navigation}) => {
     const [isPasswordShown, SetIsPasswordShown]=useState(false);
     //const [isChecked,setIsChecked]=useState(false);
   return (
    <SafeAreaView style={{flex:1,backgroundColor:"darkgrey",}}>
       <View style={{
-        marginVertical:22,
+        
         justifyContent:'center',
         alignItems:'center',
         borderRadius:10,
       }}>
-        <View style={{flex:2, marginVertical:22,}}>
-          <Text style={{
-            fontSize:22,
-            fontWeight:'bold',
-          }}
-          >
-            LOGIN
-          </Text>
-        </View>
         <View style={{
         justifyContent:'center',
         alignItems:'center',
-        borderRadius:10,
-        height:'150',
-        width:'70%',
-        marginVertical:80,
+        width:'80%',
+        
         }}>
-        <ImageBackground style={StyleSheet.image} source={require("../assets/logo2.png")} resizeMode="cover" >
-        <View style={{
+          <View style={{
           width:'100%',
-          height:48,
-          
-          
           alignItems:'center',
           justifyContent:'center',
-          paddingLeft:22,
-          flexDirection:'row',
-
         }}>
-            <Text style={{
-            marginVertical:8,
-            fontSize:30,
-            fontWeight:'bold',
-        }}> DOD LOGIN</Text> 
-        </View>
+
         <Text style={{
-            fontSize:16,
+            marginVertical:8,
+            fontSize:20,
             fontWeight:'bold',
-            marginTop:20,
+        }}> Dungeons of Dragons</Text> 
+        </View>
+
+        <CrossfadeImage style={{
+            borderRadius:20,
+            height:'80%',
+            width:'100%',
+        }}
+         source={require("../assets/logo.png")} resizeMode="cover" blurRadius={25} >
+        
+        <Text style={{
+            fontSize:20,
+            fontWeight:'bold',
+            marginTop:50,
         }}> User Name</Text> 
         <View style={{
           width:'100%',
@@ -85,7 +76,7 @@ const Login = () => {
         </View>
         
         <Text style={{
-            fontSize:16,
+            fontSize:20,
             fontWeight:'bold',
             marginTop:30,
         }}> Password</Text> 
@@ -128,21 +119,22 @@ const Login = () => {
             </TouchableOpacity>  
         </View>
         
+        <View>
           <Button
           title="Login"
-                onPress={()=> navigation.navigate("Info")}
+                onPress={() => navigation.navigate('Info')}
                 style={{
                     
-                    marginVertical:30,
-
-                       
+                    marginVertical:50,
                     borderRadius:10,
-        
+                    
                 }}/>
+        </View>
+          
           
        
         
-        </ImageBackground>
+        </CrossfadeImage>
         </View>
       </View>
       </SafeAreaView>

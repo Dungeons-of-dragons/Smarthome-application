@@ -1,11 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login';
 import Welcome from './screens/Welcome';
-import Signup  from './screens/Signup';
+import Info  from './screens/Info';
+
+
+
 
 const Stack = createNativeStackNavigator()
 export default function App() {
@@ -31,8 +34,8 @@ export default function App() {
           />
 
         <Stack.Screen
-        name="Signup"
-        component={Signup}
+        name="Info"
+        component={Info}
         options={{
           headerShown:false
         }}

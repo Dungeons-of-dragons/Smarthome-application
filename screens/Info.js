@@ -2,12 +2,13 @@ import { View, Text, ImageBackground } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Signup = () => {
+const Info = () => {
   return (
-  <View>
-    Signup
-  </View>
+    <SafeAreaView style={{flex:1,backgroundColor:'darkgrey', }}>
+
+      <Text>info</Text>
+    </SafeAreaView>
   )
 }
 
-export default Signup
+export default Info
