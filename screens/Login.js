@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { StyleSheet } from 'react-native'
 import {CrossfadeImage} from 'react-native-crossfade-image'
 import Button from '../components/Button'
-import { Pressable } from 'react-native'
+
 
 
 const Login = ({navigation}) => {
