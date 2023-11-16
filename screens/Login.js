@@ -1,20 +1,17 @@
-import { ImageBackground, Image,View, Text } from 'react-native'
+import { ImageBackground, Image,View, Text, TextInput, TouchableOpacity, StyleSheet, Pressable} from 'react-native'
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { TextInput } from 'react-native'
-import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { StyleSheet } from 'react-native'
 import {CrossfadeImage} from 'react-native-crossfade-image'
 import Button from '../components/Button'
-
+import { save, getValueFor } from '../helpers.js'
 
 
 const Login = ({navigation}) => {
-    const [isPasswordShown, SetIsPasswordShown]=useState(false);
+    const [isPasswordShown, SetIsPasswordShown]=useState(true);
   const [password, setPassword]=useState('')
   const [username, setUsername]=useState('')
-  const [isLoading, setIsLoading]=useState('')
+  const [isLoading, setIsLoading]=useState(false)
   const [error, setError] = useState({})
 
 
@@ -30,7 +27,7 @@ const Login = ({navigation}) => {
   }
   const handleClick= async ()=>{
     if (!checkError()){
-
+      setIsLoading(true)
       const request = await fetch(`${URL}/auth/login`, {
         method: 'post',
         headers:{
@@ -41,12 +38,13 @@ const Login = ({navigation}) => {
           password: password,
         })
       })
+
       if (request.status === 200){
       const response_json= await request.json()
-      console.log(response_json)
+      save('access_token', response_json.access_token)
+      save('refresh', response_json.refresh_token)
+      setIsLoading(false)
       }
-
-
     }
   }
 
@@ -157,7 +155,7 @@ const Login = ({navigation}) => {
             }}
           >
             {
-            isPasswordShown == true ?
+            isPasswordShown == false ?
             (
               <Ionicons name='eye-off' size={24} color={'black'}></Ionicons>
             ):(
@@ -181,7 +179,9 @@ const Login = ({navigation}) => {
                     marginVertical:50,
                     borderRadius:10,
 
-                }}/>
+                }}
+disabled={isLoading}
+              />
         </View>
 
 
