@@ -7,6 +7,7 @@ import Login from './screens/Login';
 import Welcome from './screens/Welcome';
 import Info  from './screens/Info';
 import { getUser } from './helpers';
+import MqttInst from './constants/MqttInst';
 
 
 
@@ -30,8 +31,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      initialRouteName = 'Login'
+      initialRouteName = 'Info'
       >
+        <Stack.Screen
+          name="MqttInst"
+          component={MqttInst}
+          options={{
+            headerShown:false
+          }}
+        />
         <Stack.Screen
           name="Welcome"
           component={Welcome}
