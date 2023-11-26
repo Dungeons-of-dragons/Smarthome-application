@@ -1,14 +1,9 @@
 import React from "react";
 import { View,Text,ScrollView,StyleSheet, FlatList, Dimensions } from "react-native";
-import { VictoryArea,VictoryChart } from "victory-native";
-//import { Box } from "@mui/material";
+import { VictoryArea,VictoryChart,VictoryLine } from "victory-native";
 
-const { width } = Dimensions.get('window');
-const gap = 1;
-const itemPerRow = 2;
-const totalGapSize = (itemPerRow - 1) * gap;
-const windowWidth = width;
-const childWidth = (windowWidth - totalGapSize) / itemPerRow;
+
+
 const data=[
     { quarter: 1, earnings: 13000 },
   { quarter: 2, earnings: 16500 },
@@ -33,70 +28,77 @@ const data3=[
   { quarter: 3, earnings: 1420 },
   { quarter: 4, earnings: 1900 }
 ]
-const Row=({children}) =>(
-    <View style={styles.row}>{children}</View>
-)
-const Col=({numRows,children})=>{
-    return (
-        <View style={styles['${numRows}col']}>{children}</View>
-    )
-}
+
 const Dashboard=()=>{
     
     return(
         <ScrollView style={{
-            backgroundColor:'',
+            backgroundColor:'grey',
             marginHorizontal:20,
-
+            flexDirection:'column'
         }}>
          
-            <Row>
-                <Col numRows={2}>
+            <View style={{
+                flexDirection:'row',
+                flex:1
+            }}>
+                 <View style={{
+                    flex:1,
+                    backgroundColor:'green'
+                 }}>
                 <Text style={{
                     fontSize:20
                 }}>
                     Humidity
                 </Text> 
-                <VictoryChart width={200} height={150}>
+                <VictoryChart>
                 <VictoryArea data={data}/>
-                </VictoryChart> 
-                </Col>
 
-                <Col numRows={2}>
+                </VictoryChart> 
+                </View>
+
+                <View style={{
+                    flex:1,
+                    backgroundColor:'orange'
+                }}>
                 <Text style={{
                     fontSize:20
                 }}>
                     Temperature
                 </Text> 
-                <VictoryChart width={200} height={150}>
-                <VictoryArea data={data1}/>
-                </VictoryChart> 
-                </Col>
-            </Row>
-            <Row>
-                <Col numRows={2}>
+                
+                </View>
+            </View>
+            <View>
+             <View style={{
+                flexDirection:'row',
+                flex:1
+             }}>
+                <View style={{
+                    flex:1,
+                    backgroundColor:'blue'
+                }}>
                 <Text style={{
                     fontSize:20
                 }}>
                     Power
                 </Text> 
-                <VictoryChart width={200} height={150}>
-                <VictoryArea data={data2}/>
-                </VictoryChart> 
-                </Col>
+               
+                </View>
 
-                <Col numRows={2}>
+                <View style={{
+                    flex:1
+                }}>
                 <Text style={{
                     fontSize:20
                 }}>
                     Current
                 </Text> 
-                <VictoryChart width={200} height={150} fill={'orchid'}>
-                <VictoryArea data={data3}/>
-                </VictoryChart> 
-                </Col>
-            </Row>
-         
+               
+                </View>
+                </View>   
+           
+            </View>
            
         </ScrollView>
         
