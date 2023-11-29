@@ -1,11 +1,13 @@
-import { View, Text, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, Dimensions, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Block from '../components/Block';
 import * as shape from 'd3-shape';
 import Dashboard from '../components/Dashboard';
 import Button from '../components/Button';
+import InfluxDBExample from '../data/mockData';
 
+const windowWidth=Dimensions.get('window').width;
 const Info = ({navigation}) => {
   const [isOn1, setIsOn1] = React.useState(false);
   const onColor ='orchid';
@@ -24,18 +26,34 @@ const Info = ({navigation}) => {
           justifyContent:'center',
           alignItems:'center',
           fontFamily:'sans-serif-condensed',
+          
         }}>Welcome to your dashboard</Text>
       </View>
       <View style={{
         width:'100%'
       }}>
-      <View>
-        <Dashboard/>
+      <View style={{
+        alignItems:'center'
+      }}>
+        <ScrollView
+        style={{
+          flexDirection:'column',
+          height:350,
+          width:{windowWidth},
+          borderColor:'bgrey',
+          borderWidth:2,
+          borderRadius:20,
+          alignContent:'flex-start',
+          padding:20
+        }}>
+        <InfluxDBExample/>
+        </ScrollView>
+        
         <View style={{
           alignContent:'center',
           alignItems:'center',
         }}>
-        <Text style={{fontFamily:'sans-serif-condensed',fontSize:20 }}> Lights</Text>
+        <Text style={{padding:5,alignSelf:'center',fontFamily:'sans-serif-condensed',fontSize:20 }}> Lights</Text>
         <TouchableOpacity style={{ 
           height:40, 
           width: 80, 
@@ -64,6 +82,7 @@ const Info = ({navigation}) => {
       <View style={{
         alignContent:'center',
         alignItems:'center',
+        padding:15
       }}>
       <Button
                 title="LogOut"
