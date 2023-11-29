@@ -18,9 +18,9 @@ export default function App() {
   
   const [isLoggedin, setIsLoggedin] = React.useState(false)
   React.useEffect(()=>{
-    console.log(isLoggedin)
+    // console.log(isLoggedin)
     const func = async()=>{
-      console.log(await getUser())
+      // console.log(await getUser())
       setIsLoggedin(await getUser()? true: false)
     }
     func()

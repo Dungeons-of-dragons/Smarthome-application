@@ -12,7 +12,12 @@ const Info = ({navigation}) => {
   const [isOn1, setIsOn1] = React.useState(false);
   const onColor ='orchid';
   const offColor='grey';
-  
+  const URL=''
+
+  async function toggleLight(){
+    const request = await fetch(URL)
+  }
+
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'darkgrey',}}>
       <View>

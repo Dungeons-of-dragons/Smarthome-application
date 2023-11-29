@@ -40,13 +40,13 @@ const MqttInst = ({navigation}) => {
   //client.onMessageArrived={onMessageArrived};
 
   const onConnect = () => {
-    console.log('Connected!!');
+    // console.log('Connected!!');
     setStatus('connected');
   }
 
   const onFailure = (err) => {
-    console.log('Connect failed!');
-    console.log(err);
+    // console.log('Connect failed!');
+    // console.log(err);
     setStatus('failed');
   }
 
@@ -62,7 +62,7 @@ const MqttInst = ({navigation}) => {
 
   const onConnectionLost = (responseObject)=>{
     if (responseObject.errorCode !== 0){
-      console.log('onConnect:' + responseObject.errorMessage);
+      // console.log('onConnect:' + responseObject.errorMessage);
     }
   }
 
@@ -76,13 +76,13 @@ const MqttInst = ({navigation}) => {
 
   const subscribeTopic = () => {
     setSubscribedTopic(topic);
-    console.log('Subscribed');
+    // console.log('Subscribed');
     client.subscribe(topic, { qos: 0 });
   }
 
   const unSubscribeTopic = () => {
     client.unsubscribe(subscribedTopic);
-    console.log('unsubscribed');
+    // console.log('unsubscribed');
     setSubscribedTopic('');
   }
 
@@ -94,12 +94,12 @@ const MqttInst = ({navigation}) => {
     var newMessage = new Paho.MQTT.Message(options.id + ':' + message);
     newMessage.destinationName = subscribedTopic;
     client.send(newMessage);
-    console.log('published');
+    // console.log('published');
   }
 
   const renderRow = ({ item, index }) => {
     message = item.split(':');
-    console.log('>>>ITEM', item);
+    // console.log('>>>ITEM', item);
     return(
       <View 
         style={[

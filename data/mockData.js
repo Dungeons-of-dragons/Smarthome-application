@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { InfluxDB } from '@influxdata/influxdb-client';
 import { VictoryLine, VictoryChart } from 'victory-native';
 import { TextEncoder, TextDecoder } from 'text-encoding';
+import Socket from './webSocket';
 
 const InfluxDBExample = () => {
   const [humidityData, setHumidityData] = useState([]);
@@ -23,21 +24,31 @@ const InfluxDBExample = () => {
           |> filter(fn: (r) => r._field == "humidity")
       `;
 
+      // const temperatureQuery = `
+      //   from(bucket: "${bucket}")
+      //     |> range(start: -72h)
+      //     |> filter(fn: (r) => r._measurement == "testdht")
+      //     |> filter(fn: (r) => r._field == "temperature")
+      // `;
       const temperatureQuery = `
-        from(bucket: "${bucket}")
-          |> range(start: -72h)
-          |> filter(fn: (r) => r._measurement == "testdht")
-          |> filter(fn: (r) => r._field == "temperature")
+      from(bucket: "${bucket}")
+      |> range(start: -2h)
+      |> filter(fn: (r) => r["_measurement"] == "dht11")
+      |> filter(fn: (r) => r["SSID"] == "strange hostel")
+      |> filter(fn: (r) => r["_field"] == "temperature")
+      |> yield(name: "mean")
       `;
 
       const fetchHumidityData = async () => {
         const { table } = await queryApi.collectRows(humidityQuery);
+        // console.log(table)
         if (table){
         setHumidityData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
       }};
 
       const fetchTemperatureData = async () => {
         const { table } = await queryApi.collectRows(temperatureQuery);
+        // console.log(table)
         if (table){
         setTemperatureData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
       }};
@@ -50,6 +61,7 @@ const InfluxDBExample = () => {
 
   return (
     <View style={styles.container}>
+      <Socket/>
        {humidityData.length > 0 && (
       <VictoryChart>
         <VictoryLine data={humidityData} />

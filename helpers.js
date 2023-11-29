@@ -43,7 +43,7 @@ async function handleSetUser(errorHandler) {
   if (userRequest.status === 200) {
     const userJSON = await userRequest.json()
     await setUser(JSON.stringify(userJSON))
-    console.log(userJSON)
+    // console.log(userJSON)
   }
   else {
     if (errorHandler !== undefined) {
