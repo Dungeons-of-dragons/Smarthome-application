@@ -8,6 +8,20 @@ const InfluxDBExample = () => {
   const [humidityData, setHumidityData] = useState([]);
   const [temperatureData, setTemperatureData] = useState([]);
 
+  const fetchHumidityData = async () => {
+    const { table } = await queryApi.collectRows(humidityQuery);
+   console.log(table)
+    if (table){
+    setHumidityData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
+  }};
+
+  const fetchTemperatureData = async () => {
+    const { table } = await queryApi.collectRows(temperatureQuery);
+   console.log(table)
+    if (table){
+    setTemperatureData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
+  }};
+
   useEffect(() => {
     const fetchData = async () => {
       const token = 'totRedKcoRsQ2QYKOHNRsJCfV5J9k-jGSzPVh6atEoL8g5E-hBiBSryeX-pVOn4dacjLPHJuPTIk3U1ryJbNBw=='
@@ -18,31 +32,24 @@ const InfluxDBExample = () => {
 
       const humidityQuery = `
         from(bucket: "${bucket}")
-          |> range(start: -40h)
+          |> range(start: -2h)
           |> filter(fn: (r) => r._measurement == "dht11")
           |> filter(fn: (r) => r._field == "humidity")
       `;
 
       const temperatureQuery = `
         from(bucket: "${bucket}")
-          |> range(start: -72h)
+          |> range(start: -2h)
           |> filter(fn: (r) => r._measurement == "testdht")
           |> filter(fn: (r) => r._field == "temperature")
       `;
 
-      const fetchHumidityData = async () => {
-        const { table } = await queryApi.collectRows(humidityQuery);
-        if (table){
-        setHumidityData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
-      }};
+      
 
-      const fetchTemperatureData = async () => {
-        const { table } = await queryApi.collectRows(temperatureQuery);
-        if (table){
-        setTemperatureData(table.map(row => ({ x: new Date(row._time), y: +row._value })));
-      }};
-
-      await Promise.all([fetchHumidityData(), fetchTemperatureData()]);
+      await Promise.all([
+        fetchHumidityData(queryApi, humidityQuery), 
+        fetchTemperatureData(queryApi, temperatureQuery)
+      ]);
     };
 
     fetchData();

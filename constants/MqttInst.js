@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -267,3 +267,4 @@ const styles = StyleSheet.create({
 });
 
 export default MqttInst
+*/
