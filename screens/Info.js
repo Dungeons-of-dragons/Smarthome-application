@@ -6,6 +6,7 @@ import * as shape from 'd3-shape';
 import Dashboard from '../components/Dashboard';
 import Button from '../components/Button';
 import InfluxDBExample from '../data/mockData';
+import Socket from '../data/webSocket';
 
 const windowWidth=Dimensions.get('window').width;
 const Info = ({navigation}) => {
@@ -32,7 +33,7 @@ const Info = ({navigation}) => {
           alignItems:'center',
           fontFamily:'sans-serif-condensed',
           
-        }}>Welcome to your dashboard</Text>
+        }}>Welcome, Dragon</Text>
       </View>
       <View style={{
         width:'100%'
@@ -51,7 +52,8 @@ const Info = ({navigation}) => {
           alignContent:'flex-start',
           padding:20
         }}>
-        <InfluxDBExample/>
+          <Text style={{alignSelf:'center', padding:20,fontFamily:"sans-serif-condensed",fontSize:15,}}>DOD Dashboard</Text>
+        <Socket/>
         </ScrollView>
         
         <View style={{
@@ -91,7 +93,7 @@ const Info = ({navigation}) => {
       }}>
       <Button
                 title="LogOut"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('Welcome')}
                 style={{  
                     width:'50%' ,
                     borderRadius:10,

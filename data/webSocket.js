@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Image,Text } from 'react-native';
 // import { WebSocket } from 'react-native-websocket';
+import { VictoryChart, VictoryLine } from 'victory-native';
 
 const Socket = () => {
-    const [temperatureValue, useTemperature]= useState({})
-    const [humidityValue, useHumidityValue]= useState({})
+    const [temperatureValue, setTemperatureValue]= useState([])
+    const [humidityValue, setHumidityValue]= useState([])
     useEffect(() => {
-      const ws = new WebSocket('ws://192.168.1.109:5000/json');
-    //   ws.onopen = () => {
-    //     // Connection opened
-    //     console.log('WebSocket connection opened');
-    //     ws.send('Hello, server!'); // Send a message to the server
-    //   };
+      let ws = new WebSocket('wss://192.168.1.109:5000/json');
+     //  ws.onopen = () => {
+          //Connection opened
+         //console.log('WebSocket connection opened');
+     //    ws.send('Hello, server!'); // Send a message to the server
+    //  };
       ws.onmessage = (e) => {
         // Receive a message from the server
         const mainJson = JSON.parse(e.data)
-        const humidity = mainJson.map((val)=>{
-            return{
-                "time": val._time,
-                "humidity": val.humidity
-            }
-        })
+        const humidity = mainJson.map((val)=>({
+          
+                x: val._time,
+                y: val.humidity
+            
+        }));
 
-        const temperature = mainJson.map((val)=>{
-            return{
-                "time": val._time,
-                "temperature": val.temperature
-            }
-        })
-        useHumidityValue(humidity)
-        useTemperature(temperature)
+        const temperature = mainJson.map((val)=>({
+            
+                x: val._time,
+                y: val.temperature
+            
+        }));
+        setHumidityValue(humidity)
+        setTemperatureValue(temperature)
         // console.log(temperature)
         // console.log(e.data);
       };
@@ -45,7 +46,28 @@ const Socket = () => {
 
     return (
       <View>
-        <Text>WebSocket Example</Text>
+        <View>
+        
+        <Image
+            source={require('../assets/humidity.jpg')} style={{
+              height: 70,
+              width:70,
+              alignSelf:'center'}}/>
+        
+        <VictoryChart>
+          <VictoryLine
+          data={humidityValue}
+          />
+        </VictoryChart>
+      </View>
+      <View>
+        <Text>Temperature</Text>
+      <VictoryChart>
+          <VictoryLine
+          data={temperatureValue}
+          />
+        </VictoryChart>
+      </View>
       </View>
     );
   };
